@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jobapplicationmanager</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <main class="flex">
+      <% if user_signed_in? %>
+        <%= render 'layouts/navbar' %>
+      <% end %>
+      <div class="container">
+        <%= yield %>
+      </div>
+    </main>
+    <div class="modal" tabindex="-1" data-controller="modal"
+    data-action="turbo:frame-load->modal#open turbo:submit-end->modal#close">
+      <div class="modal-dialog" data-modal-target="modal">
+        <div class="modal-content">
+          <%= turbo_frame_tag "modal" %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
