@@ -17,10 +17,19 @@
         <%= render 'layouts/navbar' %>
       <% end %>
       <div class="container">
-        <%= yield %>
+        <div data-controller="modal">
+          <%= yield %>
+          <dialog data-modal-target="modal">
+            <%= render 'jobs/new' %>
+          </dialog>
+        </div>
       </div>
     </main>
-    <div class="modal" tabindex="-1" data-controller="modal"
+
+
+    <%
+=begin%>
+ <div class="modal" tabindex="-1" data-controller="modal"
     data-action="turbo:frame-load->modal#open turbo:submit-end->modal#close">
       <div class="modal-dialog" data-modal-target="modal">
         <div class="modal-content">
@@ -28,5 +37,7 @@
         </div>
       </div>
     </div>
+<%
+=end%>
   </body>
 </html>

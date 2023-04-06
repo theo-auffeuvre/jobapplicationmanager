@@ -8,12 +8,14 @@
         <p class="text-center mb-5">
           <%= "#{status.jobs.count} #{'job'.pluralize(status.jobs.count).upcase}" %>
         </p>
+
         <%
 =begin%>
- <p class="border text-center mb-3" data-action="click->kanban#toggleForm">New Job</p>
+ <p class="border text-center mb-3" data-action="modal#open">New Job</p>
 <%
 =end%>
- <%= link_to "New Job", new_job_path(status_id: status.id), class: "border text-center mb-3", data: { turbo_frame: "modal" } %>
+
+        <%= link_to "New Job", new_job_path(status_id: status.id), class: "border text-center mb-3", data: { turbo_frame: "modal" } %>
         <ul class="kanban-col grow" data-id="<%= status.id %>">
           <% status.jobs.order(:status_position).each do |job| %>
             <%= link_to edit_job_path(job), class: "btn btn-primary", data: { turbo_frame: "modal" } do %>
