@@ -1,0 +1,30 @@
+<%= form_with model: @job, local: true, class: "flex flex-col px-5 modal-body" do |form| %>
+  <div class="grid grid-rows-2 grid-flow-col gap-4">
+    <div class= "flex flex-col mt-3">
+      <%= form.label :company, "Company" %>
+      <%= form.collection_select :company_id, Company.all, :id, :name, {}, { class: "rounded-md"} %>
+    </div>
+    <div class= "flex flex-col mt-3 ">
+      <%= form.label :title, "Job Title" %>
+      <%= form.text_field :title, class: "rounded-md" %>
+    </div>
+    <div class= "flex flex-col mt-3">
+      <%= form.label :url, "Job URL" %>
+      <%= form.text_field :url, class: "rounded-md" %>
+    </div>
+    <div class= "flex flex-col mt-3">
+      <%= form.label :salary, "Salary" %>
+      <%= form.text_field :salary, class: "rounded-md" %>
+    </div>
+  </div>
+  <div class= "flex flex-col mt-3">
+    <%= form.label :location, "Location" %>
+    <%= form.text_field :location, class: "rounded-md" %>
+  </div>
+  <div class="flex justify-end">
+    <div class= "bg-sky-600 rounded-md mt-3 py-1 px-3 text-white text-center mb-5" data-action="click->turbo-modal#hideModal">Discard</div>
+    <div class= "bg-sky-600 rounded-md mt-3 py-1 px-3 text-white text-center mb-5">
+      <%= form.submit %>
+    </div>
+  </div>
+<% end %>

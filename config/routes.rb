@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   # root "articles#index"
   root to: "pages#home"
 
-  resources :jobs
+  resources :jobs do
+    resources :tasks
+  end
 
   patch "/jobs/:id/update_status", to: "jobs#update_status", as: "update_status"
 

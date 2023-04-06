@@ -1,28 +1,25 @@
 <%= turbo_frame_tag "modal" do %>
-  <div class="absolute top-0 left-0 w-screen h-screen bg-sky-600 opacity-80">
-    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 h-fit bg-white opacity-100 rounded-lg z-50">
-    <h2 class="text-center py-3 border-b border-neutral-800 modal-header">Add Job</h2>
-      <%= form_with model: @job, local: true, class: "flex flex-col px-5 modal-body" do |form| %>
-        <div class= "flex flex-col mt-3">
-          <%= form.label :company, "Company" %>
-          <%= form.collection_select :company_id, Company.all, :id, :name, class: "rounded-md" %>
+  <div class="fixed top-0 left-0 w-screen h-screen bg-sky-600 bg-opacity-80 flex" data-controller="turbo-modal" data-action="turbo:submit-end->turbo-modal#submitEnd">
+    <div class="m-auto  align-middle w-fit h-fit bg-white opacity-100 rounded-lg z-50">
+      <div class="flex  max-h-[40rem]">
+        <div class="flex flex-col w-full">
+          <button class="ml-auto pt-2 pr-2" data-action="turbo-modal#hideModal">
+            <svg class="w-6 h-6 text-neutral-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+          <h2 class="text-center pb-3 border-b border-neutral-800 modal-header">Edit Job</h2>
+          <%= render "jobs/edit_form" %>
         </div>
-        <div class= "flex flex-col mt-3 ">
-          <%= form.label :title, "Job Title" %>
-          <%= form.text_field :title, class: "rounded-md" %>
+        <div class="flex flex-col border-l border-neutral-80 p-2 w-full">
+          <%= link_to "Add Task", new_job_task_path(@job), class: "border text-center px-5 mb-3 whitespace-nowrap", data: { turbo_frame: "task_modal", action: "click->turbo-modal#temporaryToggleModal" } %>
+          <ul id="tasks-list" class="overflow-y-auto scrollbar-hide">
+            <% @job.tasks.each do |task| %>
+              <%= render "tasks/task", task: task %>
+            <% end %>
+          <ul>
         </div>
-        <div class= "flex flex-col mt-3">
-          <%= form.label :url, "Job URL" %>
-          <%= form.text_field :url, class: "rounded-md" %>
-        </div>
-        <div class= "flex flex-col mt-3">
-          <%= form.label :status, "List" %>
-          <%= form.collection_select :status_id, Status.all.where(user_id: current_user), :id, :name, class: "rounded-md" %>
-        </div>
-        <div class= "w-1/3 bg-sky-600 rounded-md ml-auto mt-3 py-1 text-white text-center mb-5">
-          <%= form.submit %>
-        </div>
-      <% end %>
+      </div>
     </div>
   <div>
 <% end %>

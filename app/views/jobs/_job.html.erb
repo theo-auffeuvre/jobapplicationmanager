@@ -1,0 +1,11 @@
+<%= link_to edit_job_path(job), class: "btn btn-primary", data: { turbo_frame: "modal" } do %>
+  <li class="flex flex-col border kanban-col-item my-2" data-id="<%= job.id %>" id="li-<%= job.id %>" data-position="<%= job.status_position %>">
+    <p>
+      <%= job.title %>
+    </p>
+    <p>
+      <%= job.company.name %>
+    </p>
+    <%= link_to "Delete", job_path(job), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?" }, class: "btn btn-primary z-2" %>
+  </li>
+<% end %>
