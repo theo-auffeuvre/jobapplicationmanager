@@ -7,6 +7,10 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css" />
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
@@ -16,10 +20,15 @@
       <% if user_signed_in? %>
         <%= render 'layouts/navbar' %>
       <% end %>
-      <div class="container">
-        <%= turbo_frame_tag "modal" %>
-        <%= turbo_frame_tag "task_modal" %>
-        <%= yield %>
+      <div class="flex flex-col w-full">
+        <div class="w-full text-center border-b py-2" >
+          <%= params[:controller] %>
+        </div>
+        <div class="container">
+          <%= turbo_frame_tag "modal" %>
+          <%= turbo_frame_tag "task_modal" %>
+          <%= yield %>
+        </div>
       </div>
     </main>
   </body>

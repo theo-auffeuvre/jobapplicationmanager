@@ -14,7 +14,8 @@ export default class extends Controller {
             group: 'kanban',
             animation: 300,
             onEnd: (event) => {
-              const url = `/jobs/${event.item.dataset.id}/update_status/?new_status_id=${event.to.dataset.id}&new_status_position=${event.newDraggableIndex}`;
+              console.log(event.item.dataset.job);
+              const url = `/jobs/${event.item.dataset.job}/update_status/?new_status_id=${event.to.dataset.id}&new_status_position=${event.newDraggableIndex}`;
               fetch(url, {
                 method: 'PATCH',
                 headers: {

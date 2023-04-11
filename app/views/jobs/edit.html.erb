@@ -12,7 +12,7 @@
           <%= render "jobs/edit_form" %>
         </div>
         <div class="flex flex-col border-l border-neutral-80 p-2 w-full">
-          <%= link_to "Add Task", new_job_task_path(@job), class: "border text-center px-5 mb-3 whitespace-nowrap", data: { turbo_frame: "task_modal", action: "click->turbo-modal#temporaryToggleModal" } %>
+          <%= link_to "+ Add Appointement/Task", new_job_task_path(@job), class: "border text-center px-5 mb-3 whitespace-nowrap", data: { turbo_frame: "task_modal" } %>
           <ul id="tasks-list" class="overflow-y-auto scrollbar-hide">
             <% @job.tasks.each do |task| %>
               <%= render "tasks/task", task: task %>

@@ -1,11 +1,16 @@
-<%= link_to edit_job_path(job), class: "btn btn-primary", data: { turbo_frame: "modal" } do %>
-  <li class="flex flex-col border kanban-col-item my-2" data-id="<%= job.id %>" id="li-<%= job.id %>" data-position="<%= job.status_position %>">
-    <p>
-      <%= job.title %>
-    </p>
-    <p>
-      <%= job.company.name %>
-    </p>
-    <%= link_to "Delete", job_path(job), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?" }, class: "btn btn-primary z-2" %>
-  </li>
+<%= tag.li class: "flex flex-col border kanban-col-item my-2 rounded shadow-md bg-indigo-600 px-3 py-2 text-white", id: "li-#{job.id}", data: { position: job.status_position, job: job.id } do %>
+  <%= link_to edit_job_path(job), data: { turbo_frame: "modal" } do %>
+    <div class="flex items-center">
+      <img src="<%= job.company.logo_url.starts_with?('http') ? job.company.logo_url : image_path('default_company_logo.png') %>" class="rounded-full w-8 h-8 mr-2"/>
+      <div class="flex flex-col">
+        <p class="text-md">
+          <%= job.title %>
+        </p>
+        <p class="text-sm">
+          <%= job.company.name %>
+        </p>
+      </div>
+    </div>
+    <%= link_to "X", job_path(job), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?" }, class: "ml-auto" %>
+  <% end %>
 <% end %>

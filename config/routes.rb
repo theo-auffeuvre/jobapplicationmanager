@@ -10,6 +10,12 @@ Rails.application.routes.draw do
     resources :tasks
   end
 
+  resources :tasks, only: [:index, :show, :edit, :update, :destroy]
+
+  resources :contacts
+
   patch "/jobs/:id/update_status", to: "jobs#update_status", as: "update_status"
+
+  get "/companies/search_company", to: "companies#search_company", as: "search_company"
 
 end
