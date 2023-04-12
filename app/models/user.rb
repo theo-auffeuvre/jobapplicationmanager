@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :jobs
   has_many :contacts
+  has_many :documents
 
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true

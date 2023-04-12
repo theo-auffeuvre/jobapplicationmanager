@@ -4,6 +4,7 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new
+    @job.status_id = params[:status_id]
   end
 
   def create

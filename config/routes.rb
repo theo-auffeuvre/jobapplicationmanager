@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   resources :contacts
 
+  resources :documents
+
   patch "/jobs/:id/update_status", to: "jobs#update_status", as: "update_status"
 
   get "/companies/search_company", to: "companies#search_company", as: "search_company"

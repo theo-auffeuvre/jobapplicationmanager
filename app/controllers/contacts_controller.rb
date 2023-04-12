@@ -44,8 +44,14 @@ class ContactsController < ApplicationController
 
   def destroy
     @contact = Contact.find(params[:id])
-    @contact.destroy
-    redirect_to contacts_path
+    respond_to do |format|
+      if @contact.destroy!
+        format.turbo_stream { render turbo_stream: turbo_stream.remove("li-#{@contact.id}") }
+        format.html { redirect_to root_path, notice: "Contact was successfully deleted." }
+      else
+        render 'edit'
+      end
+    end
   end
 
   private

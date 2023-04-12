@@ -1,0 +1,21 @@
+
+<%= link_to edit_document_path(document), data: { turbo_frame: "modal" }, id: "li-#{document.id}" do %>
+  <%= tag.li class: "flex flex-col border my-2 rounded shadow-md border px-3 py-2 text-gray-400 h-full w-full min-h-56" do %>
+    <div class="flex flex-col text-center">
+      <div class="p-2 border-b">
+        <h2><%= document.main_document.filename %></h2>
+        <p><%= document.main_document.content_type.upcase.split('/')[-1] %> - <%= number_to_human_size(document.main_document.byte_size) %></p>
+      </div>
+      <div class="w-20 h-32 my-3 mx-auto flex items-center justify-center rounded-md border">
+        <div>
+          <% if document.main_document.previewable? %>
+            <%= image_tag(document.main_document.preview(resize_to_limit: [1920, 1080]))  %>
+          <% elsif document.main_document.variable? %>
+            <%= image_tag(document.main_document.variant(resize_to_limit: [1920, 1080]))  %>
+          <% end %>
+        </div>
+      </div>
+      <span class="text-sm">Last modified : <%= time_ago_in_words(document.updated_at) %> ago</span>
+    </div>
+  <% end %>
+<% end %>

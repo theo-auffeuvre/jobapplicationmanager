@@ -1,0 +1,16 @@
+<h2 class="text-center py-3 border-b border-neutral-800 modal-header">Add Document</h2>
+<div class="flex h-full" data-controller="file-preview">
+  <%= form_with model: @document, local: true, class: "flex flex-col px-5", data: { modal_target: "form" } do |form| %>
+    <div class= "flex flex-col mt-3 ">
+      <%= form.label :main_document %>
+      <%= form.file_field :main_document, data: { action: "change->file-preview#change" }  %>
+    </div>
+    <div class="flex justify-between">
+      <div class= "w-1/3 bg-sky-600 rounded-md mt-3 py-1 text-white text-center mb-5" data-action="click->turbo-modal#hideModal">Discard</div>
+      <div class= "w-1/3 bg-sky-600 rounded-md mt-3 py-1 text-white text-center mb-5">
+        <%= form.submit %>
+      </div>
+    </div>
+  <% end %>
+  <iframe src="" height="100%" width="100%" data-file-preview-target="preview"></iframe>
+</div>

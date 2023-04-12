@@ -31,7 +31,7 @@
     <%= form.text_field :phone, class: "rounded-md" %>
   </div>
   <div class="flex justify-between">
-    <%= link_to "Delete", contact_path(@contact), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?" }, class: "w-44 bg-red-600 rounded-md mt-3 py-1 text-white text-center mb-5" %>
+    <%= link_to "Delete", contact_path(@contact), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?", action: "click->turbo-modal#hideModal" }, class: "w-44 bg-red-600 rounded-md mt-3 py-1 text-white text-center mb-5" %>
     <div class="flex ml-auto">
       <div class= "rounded-md mt-3 py-1 border text-gray-600 text-center mb-5 px-2 cursor-pointer" data-action="click->turbo-modal#hideModal">Discard</div>
 

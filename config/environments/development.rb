@@ -35,6 +35,7 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
+  config.active_storage.variable_content_types = ["image/png","image/gif","image/jpg","image/jpeg","image/pjpeg","image/tiff","image/bmp","image/vnd.adobe.photoshop","image/vnd.microsoft.icon","image/webp","image/avif","image/heic","image/heif","application/pdf"]
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
