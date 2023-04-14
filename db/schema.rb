@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_12_093011) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_13_132227) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_093011) do
     t.string "logo_url"
   end
 
+  create_table "contact_jobs", force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.bigint "contact_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_contact_jobs_on_contact_id"
+    t.index ["job_id"], name: "index_contact_jobs_on_job_id"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -58,11 +67,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_093011) do
     t.string "location"
     t.string "email"
     t.integer "phone"
-    t.bigint "job_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_contacts_on_company_id"
-    t.index ["job_id"], name: "index_contacts_on_job_id"
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
@@ -133,8 +140,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_093011) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "contact_jobs", "contacts"
+  add_foreign_key "contact_jobs", "jobs"
   add_foreign_key "contacts", "companies"
-  add_foreign_key "contacts", "jobs"
   add_foreign_key "contacts", "users"
   add_foreign_key "document_attachements", "documents"
   add_foreign_key "document_attachements", "jobs"
