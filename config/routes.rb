@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :documents
 
   resources :contact_jobs, only: [:create, :destroy]
+  resources :document_jobs, only: [:create, :destroy]
 
   patch "/jobs/:id/update_status", to: "jobs#update_status", as: "update_status"
 

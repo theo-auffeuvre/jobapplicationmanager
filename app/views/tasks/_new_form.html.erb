@@ -10,23 +10,15 @@
   </div>
   <div class="flex">
     <div class= "flex flex-col mt-3">
-      <%= form.label :starts_at, "Start Date" %>
-      <%= form.date_field :starts_at, class: "rounded-md", min:Date.today, :ignore_time => true, data: {task_target: "deactivable"} %>
-    </div>
-    <div class= "flex flex-col mt-3">
-      <%= form.label :starts_at, "Time" %>
-      <%= form.time_field :starts_at, class: "rounded-md", :ignore_date => true, data: {task_target: "deactivable"} %>
+      <%= form.label "Start Date" %>
+      <%= form.datetime_field :starts_at, class: "rounded-md", min:Date.today, :ignore_time => true, data: {task_target: "deactivable"} %>
     </div>
   </div>
   <%= tag.input(type: 'checkbox', data: {task_target: "deactivable"}) %><%= tag.label "Journées entière" %>
   <div class="flex">
     <div class= "flex flex-col mt-3">
-      <%= form.label :ends_at, "End Date", data: {task_target: "dueto"} %>
-      <%= form.date_field :ends_at, class: "rounded-md", min:Date.today, :ignore_time => true %>
-    </div>
-    <div class= "flex flex-col mt-3">
-    <%= form.label :ends_at, "Time" %>
-      <%= form.time_field :ends_at, class: "rounded-md", :ignore_date => true %>
+      <%= form.label "End Date", data: {task_target: "dueto"} %>
+      <%= form.datetime_field :ends_at, class: "rounded-md", min:Date.today, :ignore_time => true %>
     </div>
   </div>
   <div class= "flex flex-col mt-3">

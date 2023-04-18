@@ -29,19 +29,25 @@
                 </div>
                 <div class="bg-gray-50 p-4 rounded-lg dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                   <div class="grid grid-cols-4 gap-5 mx-40" id="contacts">
-                    <% Contact.where(job: @job).each do |contact| %>
+                    <%= link_to "+ Add Contact", new_contact_path, class: "border text-center px-5 mb-3 whitespace-nowrap", data: { turbo_frame: "secondary_modal" } %>
+                    <% @job.contacts.each do |contact| %>
                       <%= render "contacts/contact", contact: contact %>
                     <% end %>
                   </div>
                 </div>
                 <div class="bg-gray-50 p-4 rounded-lg dark:bg-gray-800 hidden" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-                  <p>Yo</p>
+                  <div class="grid grid-cols-4 gap-5 mx-40" id="documents">
+                    <%= link_to "+ Add Contact", new_document_path, class: "border text-center px-5 mb-3 whitespace-nowrap", data: { turbo_frame: "secondary_modal" } %>
+                    <% @job.documents.each do |document| %>
+                      <%= render "documents/document", document: document %>
+                    <% end %>
+                  </div>
                 </div>
             </div>
           </div>
         </div>
         <div class="flex flex-col border-l border-neutral-80 p-2 w-full">
-          <%= link_to "+ Add Appointement/Task", new_job_task_path(@job), class: "border text-center px-5 mb-3 whitespace-nowrap", data: { turbo_frame: "task_modal" } %>
+          <%= link_to "+ Add Appointement/Task", new_job_task_path(@job), class: "border text-center px-5 mb-3 whitespace-nowrap", data: { turbo_frame: "secondary_modal" } %>
           <ul id="tasks-list" class="overflow-y-auto scrollbar-hide">
             <% @job.tasks.each do |task| %>
               <%= render "tasks/task", task: task %>

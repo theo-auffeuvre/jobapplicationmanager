@@ -7,18 +7,44 @@ export default class extends Controller {
   getCalendarData(){
     var schedules = JSON.parse(document.querySelector("#calendar").dataset.schedules);
     window.schedules = schedules;
+    console.log(schedules)
+
     schedules.forEach(schedule => {
-    this.calendar.createSchedules([
-    {
-      id: schedule.id,
-      calendarId: '1',
-      title: schedule.title,
-      category: 'time',
-      start: schedule.starts_at,
-      end: schedule.ends_at
-    }
-    ])
+      if(schedule.starts_at == null){
+        this.calendar.createSchedules([
+          {
+            id: schedule.id,
+            calendarId: '1',
+            title: schedule.title,
+            category: 'task',
+            start: schedule.ends_at,
+            end: schedule.ends_at
+          }
+          ]);
+      }else{
+        this.calendar.createSchedules([
+          {
+            id: schedule.id,
+            calendarId: '1',
+            title: schedule.title,
+            category: 'time',
+            start: schedule.starts_at,
+            end: schedule.ends_at
+          }
+          ]);
+      }
     });
+
+  }
+
+  moveToNextOrPrevRange(event) {
+    var val = parseInt(event.currentTarget.dataset.value);
+    
+    if (val === -1) {
+    this.calendar.prev();
+    } else if (val === 1) {
+    this.calendar.next();
+    }
   }
 
   connect() {
@@ -33,8 +59,8 @@ export default class extends Controller {
 
       useCreationPopup: false,
       useDetailPopup: true,
-      taskView: false,
-      alldayView: false,
+      taskView: ['task'],
+      scheduleView: ['time'],
       template: {
 
         popupDetailRepeat: function(schedule) {
@@ -53,14 +79,8 @@ export default class extends Controller {
           task: function(schedule) {
               return '&nbsp;&nbsp;#' + schedule.title;
           },
-          taskTitle: function() {
-              return '<label><input type="checkbox" />Task</label>';
-          },
           allday: function(schedule) {
               return schedule.title + ' <i class="fa fa-refresh"></i>';
-          },
-          alldayTitle: function() {
-              return 'All Day';
           },
           time: function(schedule) {
               return schedule.title + ' <i class="fa fa-refresh"></i>' + schedule.start;
