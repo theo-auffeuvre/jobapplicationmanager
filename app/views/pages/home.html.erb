@@ -1,16 +1,17 @@
 <div class="flex" data-controller="kanban" >
-  <% @statuses.each do |status| %>
+  <% @statuses.each_with_index do |status, index| %>
     <div class="border h-full w-80">
       <div class="flex flex-col  min-h-screen pt-8 px-3">
-        <h2 class="text-center">
-          <%= status.name %>
-        </h2>
-        <p class="text-center mb-5">
+        <div class="text-center text-gray-400 relative">
+          <i class="<%= @icons[index] %> absolute left-0 top-1/2 -translate-y-1/2"></i>
+          <h2><%= status.name %></h2>
+        </div>
+        <p class="text-center mb-5 text-gray-400">
           <%= "#{status.jobs.count} #{'job'.pluralize(status.jobs.count).upcase}" %>
         </p>
         <%= link_to new_job_path(status_id: status.id), data: { turbo_frame: "modal" } do %>
-          <div class="border text-center mb-3 rounded shadow-md" >
-            <i class="fas fa-plus"></i>New Job
+          <div class="border text-center mb-3 rounded shadow-md text-gray-400" >
+            <i class="fas fa-plus mr-2"></i>New Job
           </div>
         <% end %>
         <ul class="kanban-col grow" data-id="<%= status.id %>" id="ul-<%= status.id %>">

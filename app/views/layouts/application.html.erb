@@ -19,9 +19,7 @@
 
   <body>
     <main class="flex">
-      <% if user_signed_in? %>
-        <%= render 'layouts/navbar' %>
-      <% end %>
+      <%= render 'layouts/navbar' %>
       <div class="flex flex-col w-full">
         <div class="w-full text-center border-b py-2" >
           <% if params[:controller] == "pages" %>
