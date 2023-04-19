@@ -7,9 +7,7 @@
     <%= link_to "Delete", document_path(@document), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?", action: "click->turbo-modal#hideModal"}, class: "w-44 bg-red-600 rounded-md mt-3 py-1 text-white text-center mb-5" %>
     <div class="flex ml-auto">
       <div class= "rounded-md mt-3 py-1 border text-gray-600 text-center mb-5 px-2 cursor-pointer" data-action="click->turbo-modal#hideModal">Discard</div>
-
         <%= form.button "Update", type: "submit", class: "w-44 bg-sky-600 rounded-md mt-3 py-1 text-white text-center mb-5 ml-5" %>
-
     </div>
   </div>
 <% end %>

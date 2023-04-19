@@ -1,46 +1,60 @@
-<h2 class="text-center py-3 border-b border-neutral-800 modal-header">Edit Contact</h2>
-<%= form_with model: @contact, local: true, class: "flex flex-col px-5 grow", data: { modal_target: "form" } do |form| %>
-  <div class="flex">
-    <div class= "flex flex-col mt-3 ">
-      <%= form.label :first_name, "First Name" %>
-      <%= form.text_field :first_name, class: "rounded-md" %>
+<div class="w-full">
+  <%= form_with model: @contact, local: true, class: "bg-white shadow-md rounded px-8 pt-6 pb-8", data: { modal_target: "form" } do |form| %>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="col-span-2">
+        <h2 class="text-indigo-900 text-2xl mb-6 text-center">Add contact</h2>
+      </div>
+      <div>
+        <label class="block text-indigo-900 mb-2" for="first_name">
+          First Name
+        </label>
+        <%= form.text_field :first_name, class: "w-full px-4 py-2.5 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-indigo-500 placeholder-gray-400", id: "first_name", type: "text", placeholder: "John" %>
+      </div>
+      <div>
+        <label class="block text-indigo-900 mb-2" for="last_name">
+          Last Name
+        </label>
+        <%= form.text_field :last_name, class: "w-full px-4 py-2.5 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-indigo-500 placeholder-gray-400", id: "last_name", type: "text", placeholder: "Doe" %>
+      </div>
+      <div class="col-span-2">
+        <label class="block text-indigo-900 mb-2" for="job_title">
+          Job Title
+        </label>
+        <%= form.text_field :job_title, class: "w-full px-4 py-2.5 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-indigo-500 placeholder-gray-400", id: "job_title", type: "text", placeholder: "Software Engineer" %>
+      </div>
+      <div class="col-span-2 relative inline-block" data-controller="search-company">
+        <label class="block text-indigo-900 mb-2" for="company">
+          Company
+        </label>
+        <%= form.text_field :company_id, data: { search_company_target: "searchbar", action: "keyup->search-company#change" }, class: "w-full px-4 py-2.5 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-indigo-500 placeholder-gray-400", id: "company", type: "text", placeholder: "Google Inc." %>
+        <ul class="search-results absolute left-0 right-0 z-99 top-full bg-gray-200" data-search-company-target="results"></ul>
+        <%= form.hidden_field :logo_url, data: { search_company_target: "logourl" } %>
+      </div>
+      <div class="col-span-2">
+        <label class="block text-indigo-900 mb-2" for="location">
+          Location
+        </label>
+        <%= form.text_field :location, class: "w-full px-4 py-2.5 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-indigo-500 placeholder-gray-400", id: "location", type: "text", placeholder: "Mountain View, CA" %>
+      </div>
+      <div class="col-span-2">
+        <h2 class="text-indigo-900 text-2xl  mb-6">Personal details</h2>
+      </div>
+      <div>
+        <label class="block text-indigo-900 mb-2" for="email">
+          Email Address
+        </label>
+        <%= form.text_field :email, class: "w-full px-4 py-2.5 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-indigo-500 placeholder-gray-400", id: "email", type: "email", placeholder: "johndoe@example.com" %>
+      </div>
+      <div>
+        <label class="block text-indigo-900 mb-2" for="phone">
+          Phone Number
+        </label>
+        <%= form.text_field :phone, class: "w-full px-4 py-2.5 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-indigo-500 placeholder-gray-400", id: "phone", type: "tel", placeholder:"+1 (123) 456-7890" %>
+      </div>
     </div>
-    <div class= "flex flex-col mt-3 ">
-      <%= form.label :last_name, "Last Name" %>
-      <%= form.text_field :last_name, class: "rounded-md" %>
+    <div class="flex items-center justify-end mt-8 gap-2">
+      <div class= "cursor-pointer border text-gray-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline" data-action="click->turbo-modal#hideModal">Discard</div>
+      <%= form.submit class: "bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" %>
     </div>
-  </div>
-  <div class= "flex flex-col mt-3 ">
-    <%= form.label :job_title, "Job Title" %>
-    <%= form.text_field :job_title, class: "rounded-md" %>
-  </div>
-  <div class="flex">
-    <div class= "flex flex-col mt-3 relative inline-block" data-controller="search-company">
-      <%= form.label :company, "Company" %>
-      <%= form.text_field :company_id, data: { search_company_target: "searchbar", action: "keyup->search-company#change" }, value: Company.find(@contact.company_id).name %>
-      <ul class="search-results absolute left-0 right-0 z-99 top-full bg-gray-200" data-search-company-target="results"></ul>
-      <%= form.hidden_field :logo_url, data: { search_company_target: "logourl" } %>
-    </div>
-    <div class= "flex flex-col mt-3">
-      <%= form.label :location, "Location" %>
-      <%= form.text_field :location, class: "rounded-md" %>
-    </div>
-  </div>
-  <div class= "flex flex-col mt-3">
-    <%= form.label :email, "Email" %>
-    <%= form.text_field :email, class: "rounded-md" %>
-  </div>
-  <div class= "flex flex-col mt-3">
-    <%= form.label :phone, "Phone" %>
-    <%= form.text_field :phone, class: "rounded-md" %>
-  </div>
-  <div class="flex justify-between">
-    <%= link_to "Delete", contact_path(@contact), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?", action: "click->turbo-modal#hideModal" }, class: "w-44 bg-red-600 rounded-md mt-3 py-1 text-white text-center mb-5" %>
-    <div class="flex ml-auto">
-      <div class= "rounded-md mt-3 py-1 border text-gray-600 text-center mb-5 px-2 cursor-pointer" data-action="click->turbo-modal#hideModal">Discard</div>
-
-        <%= form.button "Update", type: "submit", class: "w-44 bg-sky-600 rounded-md mt-3 py-1 text-white text-center mb-5 ml-5" %>
-
-    </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

@@ -7,29 +7,32 @@ export default class extends Controller {
   getCalendarData(){
     var schedules = JSON.parse(document.querySelector("#calendar").dataset.schedules);
     window.schedules = schedules;
+
     console.log(schedules)
 
     schedules.forEach(schedule => {
-      if(schedule.starts_at == null){
+      if(schedule.task.starts_at == null){
         this.calendar.createSchedules([
           {
-            id: schedule.id,
+            id: schedule.task.id,
             calendarId: '1',
-            title: schedule.title,
+            title: schedule.task.title,
             category: 'task',
-            start: schedule.ends_at,
-            end: schedule.ends_at
+            start: schedule.task.ends_at,
+            end: schedule.task.ends_at,
+            bgColor: schedule.job.color,
           }
           ]);
       }else{
         this.calendar.createSchedules([
           {
-            id: schedule.id,
+            id: schedule.task.id,
             calendarId: '1',
-            title: schedule.title,
+            title: schedule.task.title,
             category: 'time',
-            start: schedule.starts_at,
-            end: schedule.ends_at
+            start: schedule.task.starts_at,
+            end: schedule.task.ends_at,
+            bgColor: schedule.job.color,
           }
           ]);
       }
@@ -63,13 +66,12 @@ export default class extends Controller {
       scheduleView: ['time'],
       template: {
 
-        popupDetailRepeat: function(schedule) {
-          return 'Repeat : ' + schedule.recurrenceRule;
-        },
-
-        popupStateFree: function() {
-          return 'Free';
-        },
+          popupDetailRepeat: function(schedule) {
+            return 'Repeat : ' + schedule.recurrenceRule;
+          },
+          popupStateFree: function() {
+            return 'Free';
+          },
           milestone: function(schedule) {
               return '<span style="color:red;"><i class="fa fa-flag"></i> ' + schedule.title + '</span>';
           },
@@ -84,7 +86,10 @@ export default class extends Controller {
           },
           time: function(schedule) {
               return schedule.title + ' <i class="fa fa-refresh"></i>' + schedule.start;
-          }
+          },
+          popupDetailBody: function(schedule) {
+            return 'Note : ' + schedule.note;
+          },
       },
       month: {
           daynames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],

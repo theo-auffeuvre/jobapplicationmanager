@@ -1,4 +1,4 @@
-<%= tag.li class: "flex flex-col border kanban-col-item my-2 rounded shadow-md bg-indigo-600 px-3 py-2 text-white", id: "li-#{job.id}", data: { position: job.status_position, job: job.id } do %>
+<%= tag.li class: "flex flex-col border kanban-col-item my-2 rounded shadow-md px-3 py-2 text-white", id: "li-#{job.id}", data: { position: job.status_position, job: job.id }, style: "background-color: #{job.color ||= "#3949ab"}" do %>
   <%= link_to edit_job_path(job), data: { turbo_frame: "modal" } do %>
     <div class="flex items-center">
       <img src="<%= job.company.logo_url.starts_with?('http') ? job.company.logo_url : image_path('default_company_logo.png') %>" class="rounded-full w-8 h-8 mr-2"/>

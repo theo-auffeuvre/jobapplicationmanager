@@ -18,6 +18,12 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all
+    @task_and_job = @tasks.map do |task|
+      {
+        task: task,
+        job: Job.find(task.job_id)
+      }
+    end
   end
 
   def edit

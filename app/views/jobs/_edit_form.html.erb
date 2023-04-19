@@ -23,10 +23,14 @@
     <%= form.label :location, "Location" %>
     <%= form.text_field :location, class: "rounded-md" %>
   </div>
+  <div class="flex mt-3">
+    <%= form.label "Change color of this job : ", class: "mr-3" %>
+    <%= form.color_field :color %>
+  </div>
   <div class="flex justify-end">
-    <div class= "bg-sky-600 rounded-md mt-3 py-1 px-3 text-white text-center mb-5" data-action="click->turbo-modal#hideModal">Discard</div>
+    <div class= "rounded-md mt-3 py-1 border text-gray-600 text-center mb-5 px-2 cursor-pointer" data-action="click->turbo-modal#hideModal">Discard</div>
     <div class= "bg-sky-600 rounded-md mt-3 py-1 px-3 text-white text-center mb-5">
-      <%= form.submit %>
+      <%= form.submit class: "cursor-pointer" %>
     </div>
   </div>
 <% end %>

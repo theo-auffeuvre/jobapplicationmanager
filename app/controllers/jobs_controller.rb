@@ -15,6 +15,7 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
     @job.company_id = @company.id
     @job.user_id = current_user.id
+    @job.color = "#3949ab" if params[:job][:color].blank?
     @job.status_position = 0
     respond_to do |format|
       if @job.save!
@@ -71,6 +72,6 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:title, :description, :company_id, :url, :status_id, :salary, :location)
+    params.require(:job).permit(:title, :description, :company_id, :url, :status_id, :salary, :location, :color)
   end
 end

@@ -9,7 +9,7 @@ class DocumentsController < ApplicationController
     @document.user = current_user
     respond_to do |format|
       if @document.save!
-        format.turbo_stream { render turbo_stream: turbo_stream.prepend("documents", partial: 'documents/document', locals: {document: @document}) }
+        format.turbo_stream { render turbo_stream: turbo_stream.after("add_doc", partial: 'documents/document', locals: {document: @document}) }
         format.html { redirect_to root_path, notice: "Document was successfully created." }
       else
         render 'new'

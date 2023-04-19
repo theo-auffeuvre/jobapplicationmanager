@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "modal" do %>
   <%= turbo_frame_tag "secondary_modal" do %>
     <div class="fixed top-0 left-0 w-screen h-screen bg-sky-600 bg-opacity-80 flex" data-controller="turbo-modal" data-action="turbo:submit-end->turbo-modal#submitEnd">
-      <div class="m-auto  align-middle w-fit h-fit bg-white opacity-100 rounded-lg z-50">
+      <div class="m-auto  align-middle w-fit h-fit bg-white opacity-100 rounded-lg z-50"  data-controller="file-preview">
         <%= render "documents/new_form" %>
       </div>
     <div>
