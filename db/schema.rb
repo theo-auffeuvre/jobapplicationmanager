@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_13_132227) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_19_130858) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,6 +82,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_132227) do
     t.index ["job_id"], name: "index_document_attachements_on_job_id"
   end
 
+  create_table "document_jobs", force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.bigint "document_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["document_id"], name: "index_document_jobs_on_document_id"
+    t.index ["job_id"], name: "index_document_jobs_on_job_id"
+  end
+
   create_table "documents", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -101,6 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_132227) do
     t.bigint "company_id", null: false
     t.bigint "status_id"
     t.integer "status_position"
+    t.string "color"
     t.index ["company_id"], name: "index_jobs_on_company_id"
     t.index ["status_id"], name: "index_jobs_on_status_id"
     t.index ["user_id"], name: "index_jobs_on_user_id"
@@ -146,6 +156,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_132227) do
   add_foreign_key "contacts", "users"
   add_foreign_key "document_attachements", "documents"
   add_foreign_key "document_attachements", "jobs"
+  add_foreign_key "document_jobs", "documents"
+  add_foreign_key "document_jobs", "jobs"
   add_foreign_key "documents", "users"
   add_foreign_key "jobs", "companies"
   add_foreign_key "jobs", "statuses"

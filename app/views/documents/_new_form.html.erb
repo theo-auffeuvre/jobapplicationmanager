@@ -1,16 +1,15 @@
-<h2 class="text-center py-3 border-b border-neutral-800 modal-header">Add Document</h2>
-<div class="flex h-full" data-controller="file-preview">
-  <%= form_with model: @document, local: true, class: "flex flex-col px-5", data: { modal_target: "form" } do |form| %>
-    <div class= "flex flex-col mt-3 ">
-      <%= form.label :main_document %>
-      <%= form.file_field :main_document, data: { action: "change->file-preview#change" }  %>
+<div class="w-full max-w-lg mx-auto">
+  <%= form_with model: @document, local: true, class: "bg-white shadow-md rounded px-8 pt-6 pb-8", data: { modal_target: "form" } do |form| %>
+    <div class="col-span-2">
+      <h2 class="text-indigo-900 text-2xl mb-6 text-center">Add document</h2>
     </div>
-    <div class="flex justify-between">
-      <div class= "w-1/3 bg-sky-600 rounded-md mt-3 py-1 text-white text-center mb-5" data-action="click->turbo-modal#hideModal">Discard</div>
-      <div class= "w-1/3 bg-sky-600 rounded-md mt-3 py-1 text-white text-center mb-5">
-        <%= form.submit %>
-      </div>
+    <div>
+      <%= form.file_field :main_document, data: { action: "change->file-preview#change" }, class: "w-full rounded-lg border-2 border-gray-300 focus:outline-none focus:border-indigo-500 placeholder-gray-400", id: "document", placeholder: "My_Resume_Example.pdf" %>
+      <iframe src="" class="grow" width="100%" data-file-preview-target="preview"></iframe>
+    </div>
+    <div class="flex items-center justify-end mt-8 gap-2">
+      <div class= "cursor-pointer border text-gray-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline" data-action="click->turbo-modal#hideModal">Discard</div>
+      <%= form.submit class: "bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" %>
     </div>
   <% end %>
-  <iframe src="" height="100%" width="100%" data-file-preview-target="preview"></iframe>
 </div>

@@ -2,11 +2,10 @@ class ContactJobsController < ApplicationController
 
   def create
     @contactjob = ContactJob.new(contactjobs_params)
-    @contact = @contactjob.contact
-    @job = @contactjob.job
     respond_to do |format|
       if @contactjob.save!
-        format.turbo_stream { render turbo_stream: turbo_stream.prepend("contactjobs", partial: "contactjobs/contactjob", locals: { job: @job }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.prepend("contacts", partial: 'contacts/contact', locals: { job: @contactjob.job }) }
+        format.html { redirect_to root_path, notice: "Job was successfully added." }
       else
         render 'new'
       end

@@ -1,13 +1,15 @@
-<div class="flex justify-end my-2">
-  <%= link_to new_contact_path, data: { turbo_frame: "modal" } do %>
-    <div class="border text-center  text-gray-400 mb-3 px-3 rounded shadow-md" >
-      <i class="fas fa-plus"></i> New Contact
-    </div>
+<div class="grid grid-cols-4 gap-5 mx-40 my-8" id="contacts">
+  <%= link_to new_contact_path, data: { turbo_frame: "modal" }, id: "add_contact" do %>
+    <%= tag.li class: "flex flex-col justify-center border-dashed my-2 rounded shadow-md border px-3 py-2 text-gray-400 bg-gray-100 h-full w-fit min-w-full min-h-56" do %>
+      <div class="flex flex-col justify-center items-center h-full">
+        <i class="fas fa-plus text-3xl"></i>
+        <p>Add new Contact</p>
+      </div>
+    <% end %>
   <% end %>
-</div>
-
-<div class="grid grid-cols-4 gap-5 mx-40" id="contacts">
   <% @contacts.each do |contact| %>
+    <%= link_to edit_contact_path(contact), data: { turbo_frame: "modal" }, id: "li-#{contact.id}" do %>
       <%= render partial: "contact", locals: { contact: contact } %>
+    <% end %>
   <% end %>
 </div>

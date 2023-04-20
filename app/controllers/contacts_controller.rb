@@ -11,7 +11,7 @@ class ContactsController < ApplicationController
     @contact.company_id = @company.id
     respond_to do |format|
       if @contact.save!
-        format.turbo_stream { render turbo_stream: turbo_stream.prepend("contacts", partial: 'contacts/contact', locals: {contact: @contact}) }
+        format.turbo_stream { render turbo_stream: turbo_stream.after("add_contact", partial: 'contacts/contact', locals: {contact: @contact}) }
         format.html { redirect_to root_path, notice: "Contact was successfully created." }
       else
         render 'new'

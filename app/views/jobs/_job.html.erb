@@ -1,5 +1,5 @@
-<%= tag.li class: "flex flex-col border kanban-col-item my-2 rounded shadow-md bg-indigo-600 px-3 py-2 text-white", id: "li-#{job.id}", data: { position: job.status_position, job: job.id } do %>
-  <%= link_to edit_job_path(job), data: { turbo_frame: "modal" } do %>
+<%= link_to edit_job_path(job), data: { turbo_frame: "modal" } do %>
+  <%= tag.li class: "flex flex-col border kanban-col-item my-2 rounded shadow-md px-3 py-2 text-white transition duration-500 hover:scale-105", id: "li-#{job.id}", data: { position: job.status_position, job: job.id }, style: "background-color: #{job.color ||= "#3949ab"}" do %>
     <div class="flex items-center">
       <img src="<%= job.company.logo_url.starts_with?('http') ? job.company.logo_url : image_path('default_company_logo.png') %>" class="rounded-full w-8 h-8 mr-2"/>
       <div class="flex flex-col">
@@ -9,8 +9,10 @@
         <p class="text-sm">
           <%= job.company.name %>
         </p>
+        <p class="text-sm">
+          <i class="fas fa-location-dot fa-md mr-1"></i><%= job.location.blank? ? "Undefined" : job.location %>
+        </p>
       </div>
     </div>
-    <%= link_to "X", job_path(job), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?" }, class: "ml-auto" %>
   <% end %>
 <% end %>

@@ -1,3 +1,5 @@
 <div data-controller="calendar" class="relative">
-  <%= tag.div nil, data: {schedules: @tasks .to_json}, id: "calendar"%>
+  <%= tag.div nil, data: {schedules: @task_and_job .to_json}, id: "calendar", class: "h-80"%>
+  <button data-action="click->calendar#moveToNextOrPrevRange" data-value="-1" class="absolute top-0 left-0">Prev</button>
+  <button data-action="click->calendar#moveToNextOrPrevRange" data-value="1" class="absolute top-0 right-0">Next</button>
 </div>

@@ -1,19 +1,15 @@
-<h2 class="text-center py-3 border-b border-neutral-800 modal-header">Edit Document</h2>
-<div class="flex h-full" data-controller="file-preview">
-  <%= form_with model: @document, local: true, class: "flex flex-col px-5", data: { modal_target: "form" } do |form| %>
-    <div class= "flex flex-col mt-3 ">
-      <%= form.label :main_document %>
-      <%= form.file_field :main_document, data: { action: "change->file-preview#change" } %>
+<%= form_with model: @document, local: true, class: "flex flex-col px-5", data: { modal_target: "form" } do |form| %>
+  <div class= "flex flex-col mt-3 ">
+    <%= form.label :main_document %>
+    <%= form.file_field :main_document, data: { action: "change->file-preview#change" } %>
+  </div>
+  <div class="flex justify-between">
+    <%= link_to "Delete", document_path(@document), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?", action: "click->turbo-modal#hideModal"}, class: "w-44 bg-red-600 rounded-md mt-3 py-1 text-white text-center mb-5" %>
+    <div class="flex ml-auto">
+      <div class= "rounded-md mt-3 py-1 border text-gray-600 text-center mb-5 px-2 cursor-pointer" data-action="click->turbo-modal#hideModal">Discard</div>
+        <%= form.button "Update", type: "submit", class: "w-44 bg-sky-600 rounded-md mt-3 py-1 text-white text-center mb-5 ml-5" %>
     </div>
-    <div class="flex justify-between">
-      <%= link_to "Delete", document_path(@document), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?", action: "click->turbo-modal#hideModal"}, class: "w-44 bg-red-600 rounded-md mt-3 py-1 text-white text-center mb-5" %>
-      <div class="flex ml-auto">
-        <div class= "rounded-md mt-3 py-1 border text-gray-600 text-center mb-5 px-2 cursor-pointer" data-action="click->turbo-modal#hideModal">Discard</div>
+  </div>
+<% end %>
+<iframe src="<%= rails_blob_path(@document.main_document, disposition: :inline) %>" class="grow" width="100%" data-file-preview-target="preview"></iframe>
 
-          <%= form.button "Update", type: "submit", class: "w-44 bg-sky-600 rounded-md mt-3 py-1 text-white text-center mb-5 ml-5" %>
-
-      </div>
-    </div>
-  <% end %>
-  <iframe src="<%= rails_blob_path(@document.main_document, disposition: :inline) %>" height="100%" width="100%" data-file-preview-target="preview"></iframe>
-</div>
