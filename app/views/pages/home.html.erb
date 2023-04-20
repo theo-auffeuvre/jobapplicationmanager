@@ -6,7 +6,7 @@
           <%= status.name %>
         </h2>
         <p class="text-center mb-5">
-          <%= "#{status.jobs.count} #{'job'.pluralize(status.jobs.count).upcase}" %>
+          <span id="span-<%= status.id %>"><%= status.jobs.count %></span><span> <%= 'job'.pluralize(status.jobs.count).upcase %></span>
         </p>
         <%= link_to new_job_path(status_id: status.id), data: { turbo_frame: "modal" } do %>
           <div class="border text-center mb-3 rounded shadow-md" >

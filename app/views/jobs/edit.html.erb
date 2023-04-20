@@ -29,7 +29,7 @@
                 </div>
                 <div class="bg-gray-50 p-4 rounded-lg dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                   <div class="grid grid-cols-4 gap-5 mx-40" id="contacts">
-                    <% Contact.where(job: @job).each do |contact| %>
+                    <% @job.contacts.each do |contact| %>
                       <%= render "contacts/contact", contact: contact %>
                     <% end %>
                   </div>
